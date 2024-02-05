@@ -69,37 +69,37 @@ class LoginPage extends StatelessWidget {
 
               const SizedBox(height: 25),
 
-              //sign in button
+              //Sign in button
               MyButton(
                 text: "Login",
-                onTap: onTap,
+                onTap: Login,
               ),
 
               const SizedBox(height: 25),
               
               //Don't have an account yet?
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Don\'t have and account?',
-                      style: TextStyle(color: Theme.of(context).colorScheme.inversePrimary)
-                  ),
-                ],
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Don\'t have an account?',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.inversePrimary,
+                ),
               ),
               GestureDetector(
-                onTap: (){},
-                child: const Text('Register here',
+                onTap: onTap,
+                child: const Text(
+                  'Register here',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-
-
             ],
           ),
-        ),
+        ]),
       ),
-    );
+      ));
   }
 }

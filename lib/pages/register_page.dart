@@ -81,7 +81,7 @@ class RegisterPage extends StatelessWidget {
               //Register in button
               MyButton(
                 text: "Register",
-                onTap:onTap,
+                onTap:Register,
               ),
 
               const SizedBox(height: 25),
@@ -92,16 +92,16 @@ class RegisterPage extends StatelessWidget {
                   Text('Already have an account?',
                       style: TextStyle(color: Theme.of(context).colorScheme.inversePrimary)),
                   GestureDetector(
-                    onTap: () => Navigator.pushNamed(context, '/login'), // Replace with your login page route
-                    child: const Text('Login here',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                    onTap: onTap, // Use the onTap function here
+                    child: const Text(
+                      'Login here',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ],
-              )
-
-
-
+              ),
             ],
           ),
         ),
