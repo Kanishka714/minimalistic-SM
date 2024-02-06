@@ -1,22 +1,62 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:socialmedia/component/mybotton.dart';
 import 'package:socialmedia/component/mytextfield.dart';
+import 'package:socialmedia/help/help_function.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
   final void Function()? onTap;
 
-  RegisterPage({super.key, required this.onTap});
+  const RegisterPage({super.key, required this.onTap});
 
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
   //text controller
   TextEditingController userNameController = TextEditingController();
+
   TextEditingController emailController = TextEditingController();
+
   TextEditingController passwordController = TextEditingController();
+
   TextEditingController confirmPasswordController = TextEditingController();
 
   //Register method
-  void Register(){}
+  void Register() async {
+    //show loading circle
+    showDialog(context: context,
+      builder: (context) =>
+      const Center(child: CircularProgressIndicator(),
+      ),);
 
+    //make sure passwords match
+    if (passwordController.text != confirmPasswordController.text) {
+    //pop loading circle
+    Navigator.pop(context);
+      //show error to user
+    displayMessageToUser("Password doesn't match ", context);
+    } //if password doesn't match
+    else{
+      //create an user
+      try {
+        UserCredential? userCredential =
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: emailController.text, password: passwordController.text);
+        //pop loading cirlcle
+        Navigator.pop(context);
+      }on FirebaseAuthException catch(e){
+        //pop loading cirlce
+        Navigator.pop(context);
 
+        //display error
+        displayMessageToUser(e.code, context);
+      }
+    }
+  }
+
+  //make sure passwords match
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,7 +132,7 @@ class RegisterPage extends StatelessWidget {
                   Text('Already have an account?',
                       style: TextStyle(color: Theme.of(context).colorScheme.inversePrimary)),
                   GestureDetector(
-                    onTap: onTap, // Use the onTap function here
+                    onTap: widget.onTap, // Use the onTap function here
                     child: const Text(
                       'Login here',
                       style: TextStyle(
