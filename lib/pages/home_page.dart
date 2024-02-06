@@ -1,13 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:socialmedia/component/mydrawer.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  //logout user
-  void logout(){
-    FirebaseAuth.instance.signOut();
-  }
+
 
 
   @override
@@ -15,12 +13,8 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Center(child: Text("Home")),
         backgroundColor: Colors.lime,
-        actions: [
-          //log out button
-          IconButton(
-              onPressed: logout, icon: Icon(Icons.logout))
-        ],
       ),
+      drawer: MyDrawer(),
       body: Center(child: Text("Welcome in to Thougths")),
     );
   }

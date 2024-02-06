@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:socialmedia/auth/check.dart';
 import 'package:socialmedia/auth/login_or_register.dart';
 import 'package:socialmedia/firebase_options.dart';
+import 'package:socialmedia/pages/home_page.dart';
 import 'package:socialmedia/pages/login_page.dart';
+import 'package:socialmedia/pages/profile.dart';
 import 'package:socialmedia/pages/register_page.dart';
+import 'package:socialmedia/pages/users_page.dart';
 import 'package:socialmedia/themes/dark_mode.dart';
 import 'package:socialmedia/themes/light_mode.dart';
 
@@ -24,6 +27,12 @@ class MyApp extends StatelessWidget {
       home: CheckPage(),
       theme: lightMode,
       darkTheme: darkMode,
+      routes: {
+        '/login_or_register': (context) => const AuthPage(),
+        '/home_page': (context) => const HomePage(),
+        '/profile': (context) => const ProfilePage(),
+        '/users_page': (context) => const UsersPage(),
+      },
     );
   }
 }
