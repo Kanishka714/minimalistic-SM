@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:socialmedia/component/mybotton.dart';
@@ -44,8 +45,12 @@ class _RegisterPageState extends State<RegisterPage> {
         UserCredential? userCredential =
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
             email: emailController.text, password: passwordController.text);
+
+        //create an user document and add it to the firestore
+        createUserDocument(userCredential);
+
         //pop loading cirlcle
-        Navigator.pop(context);
+        if(context.mounted)Navigator.pop(context);
       }on FirebaseAuthException catch(e){
         //pop loading cirlce
         Navigator.pop(context);
@@ -55,6 +60,20 @@ class _RegisterPageState extends State<RegisterPage> {
       }
     }
   }
+
+  //create user document and collect them in firestore
+  Future<void> createUserDocument(UserCredential? userCredential) async{
+    if(userCredential != null && userCredential.user != null){
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(userCredential.user!.email)
+          .set({
+        'email': userCredential.user!.email,
+        'username': userNameController.text,
+      });
+    }
+  }
+
 
   //make sure passwords match
   @override
